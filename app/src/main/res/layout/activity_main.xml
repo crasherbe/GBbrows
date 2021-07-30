@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <WebView
         android:id="@+id/web_view"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </WebView>
-
+        android:layout_height="match_parent"/>
 </RelativeLayout>
