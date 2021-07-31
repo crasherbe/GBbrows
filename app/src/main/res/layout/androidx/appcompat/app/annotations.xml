@@ -4,4 +4,10 @@
             <val name="pure" val="true" />
         </annotation>
     </item>
+    <item
+        name='androidx.appcompat.app.AppCompatActivity void setSupportActionBar(androidx.appcompat.widget.Toolbar)'>
+        <annotation name='org.jetbrains.annotations.Contract'>
+            <val name="pure" val="true" />
+        </annotation>
+    </item>
 </root>
