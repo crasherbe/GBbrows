@@ -4,19 +4,23 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     private WebView webViewku;
     private WebSettings webSettings;
+    private ProgressBar progressBar;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -27,13 +31,47 @@ public class MainActivity extends AppCompatActivity {
         AdBlocker.init(this);
 
         webViewku = (WebView) findViewById(R.id.web_view);
-        webViewku.setWebChromeClient(new WebChromeClient());
         webViewku.setWebViewClient(new MyBrowser());
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setMax(100);
+        webViewku.setWebViewClient(new WebViewClient());
+        webViewku.loadUrl("https://www.google.com/");
+        progressBar.setProgress(0);
+
+        webViewku.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                progressBar.setProgress(newProgress);
+                if (newProgress==100)
+                    progressBar.setVisibility(View.INVISIBLE);
+                else
+                    progressBar.setVisibility(View.VISIBLE);
+
+                super.onProgressChanged(view, newProgress);
+            }
+
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                super.onReceivedTitle(view, title);
+            }
+
+            @Override
+            public void onReceivedIcon(WebView view, Bitmap icon) {
+                super.onReceivedIcon(view, icon);
+            }
+
+            @Override
+            public void onCloseWindow(WebView window) {
+                super.onCloseWindow(window);
+            }
+        });
+
 
         WebSettings webSettings = webViewku.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        webViewku.loadUrl("https://www.google.com/");
+
 
     }
 
